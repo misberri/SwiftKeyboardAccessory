@@ -50,7 +50,7 @@ extension UITextField {
       return objc_getAssociatedObject( self, &SwiftKeyboardAccessoryTextFieldCellIndexPathKey ) as? NSIndexPath
     }
     set(value) {
-      objc_setAssociatedObject( self, &SwiftKeyboardAccessoryTextFieldCellIndexPathKey, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC) )
+      objc_setAssociatedObject( self, &SwiftKeyboardAccessoryTextFieldCellIndexPathKey, value, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC )
     }
   }
   
@@ -179,7 +179,7 @@ extension UIViewController {
       return nil
     }
     set(value) {
-      objc_setAssociatedObject( self, &SwiftKeyboardAccessoryReturnClosureKey, ReturnClosureWrapper(closure: value), objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC) )
+      objc_setAssociatedObject( self, &SwiftKeyboardAccessoryReturnClosureKey, ReturnClosureWrapper(closure: value), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC )
     }
   }
 
@@ -193,7 +193,7 @@ extension UIViewController {
       return nil
     }
     set(value) {
-      objc_setAssociatedObject( self, &SwiftKeyboardAccessorytextFieldEndEditingClosureKey, ReturnClosureWrapper(closure: value), objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC) )
+      objc_setAssociatedObject( self, &SwiftKeyboardAccessorytextFieldEndEditingClosureKey, ReturnClosureWrapper(closure: value), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC )
     }
   }
 
@@ -261,7 +261,7 @@ extension UIViewController {
   }
   
   private func createToolbar() -> UIToolbar {
-    var toolbar = UIToolbar(frame: CGRectMake( 0, 0, self.view.frame.size.width, kToolbarHeight ) )
+    let toolbar = UIToolbar(frame: CGRectMake( 0, 0, self.view.frame.size.width, kToolbarHeight ) )
     toolbar.barStyle = .Default
     var items = [UIBarButtonItem]()
     if sortedTextFields?.count > 0 || sortedTextFieldsIndexPaths?.count > 0 {
@@ -286,13 +286,13 @@ extension UIViewController {
       self.nextButton = nextButton;
       
       items.append( previousButton )
-      var separator = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+      let separator = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
       separator.width = 20.0
       items.append( separator )
       items.append( nextButton )
     }
     items.append( UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil) )
-    var doneButton = UIBarButtonItem(title: NSLocalizedString("Done",comment:""), style: .Plain, target: self, action: "textFieldDone" )
+    let doneButton = UIBarButtonItem(title: NSLocalizedString("Done",comment:""), style: .Plain, target: self, action: "textFieldDone" )
     //        doneButton.tintColor = theme.tintColor
     items.append( doneButton )
     toolbar.items = items
@@ -303,7 +303,7 @@ extension UIViewController {
   }
   
   private func setProperty( key:UnsafePointer<Void>, value:AnyObject? ) {
-    objc_setAssociatedObject( self, key, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC) )
+    objc_setAssociatedObject( self, key, value, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC )
   }
   
   private func goToField( direction: Int ) {
@@ -434,7 +434,7 @@ extension UIViewController {
         if !(targetView is UITableView) {
           var maxY:CGFloat = 0
           var contentWidth:CGFloat = 0
-          var i:Int
+//          var i:Int
           for subview in targetView.subviews {
             if let subView = subview as? UIView {
               if !subView.hidden {
